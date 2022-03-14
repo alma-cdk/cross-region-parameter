@@ -1,5 +1,1 @@
-export class Hello {
-  public sayHello() {
-    return 'hello, world!';
-  }
-}
+export { CrossRegionParameter, ICrossRegionParameterProps } from './parameter';

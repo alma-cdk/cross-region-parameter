@@ -1,8 +1,8 @@
 {
-  "name": "cdk-cross-region-parameter",
+  "name": "@almamedia-open-source/cdk-cross-region-parameter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/almamedia-open-source/cdk-cross-region-parameter"
+    "url": "https://github.com/almamedia-open-source/cdk-project-target.git"
   },
   "scripts": {
     "build": "npx projen build",
@@ -31,17 +31,18 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "joni3k",
-    "email": "joni.korpisalo@almamedia.fi",
-    "organization": false
+    "name": "Alma Media",
+    "email": "opensource@almamedia.dev",
+    "organization": true
   },
   "devDependencies": {
+    "@types/change-case": "^2.3.1",
     "@types/jest": "^27.4.1",
-    "@types/node": "^12",
+    "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.1.0",
-    "constructs": "10.0.5",
+    "constructs": "10.0.0",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -60,11 +61,23 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.1.0",
-    "constructs": "^10.0.5"
+    "constructs": "^10.0.0"
   },
+  "dependencies": {
+    "change-case": "^4.1.2"
+  },
+  "bundledDependencies": [
+    "change-case"
+  ],
   "keywords": [
+    "aws",
+    "aws-cdk",
+    "awscdk",
     "cdk"
   ],
+  "engines": {
+    "node": ">= 14.17.6"
+  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "version": "0.0.0",
@@ -109,7 +122,7 @@
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "stable",
+  "stability": "experimental",
   "jsii": {
     "outdir": "dist",
     "targets": {},
