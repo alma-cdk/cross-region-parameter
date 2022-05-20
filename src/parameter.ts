@@ -4,41 +4,8 @@ import * as cdk from 'aws-cdk-lib/core';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
+import { CrossRegionParameterProps } from './props';
 
-type Tag = {
-  [key: string]: string;
-}
-
-export interface CrossRegionParameterProps {
-  readonly region: string;
-  readonly name: string;
-  readonly description: string;
-  readonly value: string;
-  readonly allowedPattern?: string;
-  readonly keyId?: string;
-
-  /**
-   * Tier
-   * @default
-   * "Standard"
-   */
-  readonly parameterTier?: ssm.ParameterTier;
-
-  /**
-   * Type
-   * @default
-   * "String"
-   */
-  readonly parameterType?: ssm.ParameterType;
-  readonly tags?: Tag[];
-
-  /**
-   * Parameter policies
-   * @link https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SSM.html#putParameter-property
-   * @link https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html
-   */
-  readonly policies?: string;
-}
 
 export enum OnEvent {
   ON_CREATE='onCreate',
@@ -51,6 +18,8 @@ export class CrossRegionParameter extends Construct {
     super(scope, name);
 
     const st = this.definePolicy(props);
+
+    // TODO validate regions (should not match)
 
     const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
 
@@ -103,7 +72,7 @@ export class CrossRegionParameter extends Construct {
         KeyId: keyId,
         Overwrite: eventType !== OnEvent.ON_CREATE,
         Policies: policies,
-        Tags: tags,
+        Tags: tags, // TODO this might be incorrect type
         Tier: tier,
         Type: type,
       },

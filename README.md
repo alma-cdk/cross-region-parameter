@@ -44,10 +44,10 @@
 ```ts
 import { CrossRegionParameter } from "@alma-cdk/cross-region-parameter";
 
-new CrossRegionParameter(this, "SayHiToSweden", {
-  region: "eu-north-1",
-  name: "/parameter/path/message",
-  description: "Some message for the Swedes!",
-  value: "Hej då!",
+new CrossRegionParameter(this, 'SayHiToSweden', {
+  region: 'eu-north-1',
+  name: '/parameter/path/message',
+  description: 'Some message for the Swedes',
+  value: 'Hej då!',
 });
 ```
