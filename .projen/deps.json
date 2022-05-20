@@ -14,6 +14,11 @@
       "type": "build"
     },
     {
+      "name": "@types/prettier",
+      "version": "v2.6.0",
+      "type": "build"
+    },
+    {
       "name": "@typescript-eslint/eslint-plugin",
       "version": "^5",
       "type": "build"
@@ -25,7 +30,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.1.0",
+      "version": "2.24.1",
       "type": "build"
     },
     {
@@ -51,12 +56,13 @@
       "type": "build"
     },
     {
-      "name": "jest",
+      "name": "jest-junit",
+      "version": "^13",
       "type": "build"
     },
     {
-      "name": "jest-junit",
-      "version": "^13",
+      "name": "jest",
+      "version": "^27",
       "type": "build"
     },
     {
@@ -69,6 +75,10 @@
     },
     {
       "name": "jsii-docgen",
+      "type": "build"
+    },
+    {
+      "name": "jsii-pacmak",
       "type": "build"
     },
     {
@@ -91,6 +101,7 @@
     },
     {
       "name": "ts-jest",
+      "version": "^27",
       "type": "build"
     },
     {
@@ -103,7 +114,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.1.0",
+      "version": "^2.24.1",
       "type": "peer"
     },
     {
