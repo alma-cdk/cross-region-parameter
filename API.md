@@ -117,16 +117,16 @@ const crossRegionParameterProps: CrossRegionParameterProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value">value</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern">allowedPattern</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId">keyId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | Tier. |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | Type. |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | Parameter policies. |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}[]</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | Information about the SSM Parameter that you want to add. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name">name</a></code> | <code>string</code> | SSM Parameter name. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region">region</a></code> | <code>string</code> | Target region for the parameter. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value">value</a></code> | <code>string</code> | The SSM Parameter value that you want to add. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern">allowedPattern</a></code> | <code>string</code> | A regular expression used to validate the SSM Parameter Value. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId">keyId</a></code> | <code>string</code> | The AWS Key Management Service (AWS KMS) ID that you want to use to encrypt a parameter. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | The SSM Parameter Tier to assign to a parameter. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | The type of SSM Parameter that you want to add. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | One or more policies to apply to a SSM Parameter. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to add into the SSM Paramater that you want to add. |
 
 ---
 
@@ -138,7 +138,18 @@ public readonly description: string;
 
 - *Type:* string
 
+Information about the SSM Parameter that you want to add.
+
+Required by this construct (AWS considers it as optional).
+
 ---
+
+*Example*
+
+```typescript
+'Some message for the Swedes'
+```
+
 
 ##### `name`<sup>Required</sup> <a name="name" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name"></a>
 
@@ -148,7 +159,16 @@ public readonly name: string;
 
 - *Type:* string
 
+SSM Parameter name.
+
 ---
+
+*Example*
+
+```typescript
+'/parameter/path/message'
+```
+
 
 ##### `region`<sup>Required</sup> <a name="region" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region"></a>
 
@@ -158,7 +178,18 @@ public readonly region: string;
 
 - *Type:* string
 
+Target region for the parameter.
+
+Must be some other region than the current Stack's region.
+
 ---
+
+*Example*
+
+```typescript
+'eu-north-1'
+```
+
 
 ##### `value`<sup>Required</sup> <a name="value" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value"></a>
 
@@ -168,7 +199,20 @@ public readonly value: string;
 
 - *Type:* string
 
+The SSM Parameter value that you want to add.
+
+Limits:
+- Standard parameters have a value limit of 4 KB.
+- Advanced parameters have a value limit of 8 KB.
+
 ---
+
+*Example*
+
+```typescript
+'Hej då!'
+```
+
 
 ##### `allowedPattern`<sup>Optional</sup> <a name="allowedPattern" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern"></a>
 
@@ -178,7 +222,21 @@ public readonly allowedPattern: string;
 
 - *Type:* string
 
+A regular expression used to validate the SSM Parameter Value.
+
+For example, for String types with values restricted to numbers,
+you can specify the following: `^\d+$`.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html#systemsmanager-PutParameter-request-AllowedPattern](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html#systemsmanager-PutParameter-request-AllowedPattern)
+
 ---
+
+*Example*
+
+```typescript
+'^\d+$'
+```
+
 
 ##### `keyId`<sup>Optional</sup> <a name="keyId" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId"></a>
 
@@ -188,7 +246,24 @@ public readonly keyId: string;
 
 - *Type:* string
 
+The AWS Key Management Service (AWS KMS) ID that you want to use to encrypt a parameter.
+
+Either the default AWS KMS key automatically assigned to your AWS account or a custom key. Required for parameters that use the SecureString data type.
+
+The KMS Key must exists in the target region.
+
+If you don't specify a key ID, the system uses the default key associated with your AWS account.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html#systemsmanager-PutParameter-request-KeyId](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html#systemsmanager-PutParameter-request-KeyId)
+
 ---
+
+*Example*
+
+```typescript
+'1234abcd-12ab-34cd-56ef-1234567890ab'
+```
+
 
 ##### `parameterTier`<sup>Optional</sup> <a name="parameterTier" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier"></a>
 
@@ -197,11 +272,23 @@ public readonly parameterTier: ParameterTier;
 ```
 
 - *Type:* aws-cdk-lib.aws_ssm.ParameterTier
-- *Default:* "Standard"
+- *Default:* ParameterTier.STANDARD
 
-Tier.
+The SSM Parameter Tier to assign to a parameter.
+
+Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard parameters for each Region in an AWS account. Standard parameters are offered at no additional cost.
+- Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can create a maximum of 100,000 advanced parameters for each Region in an AWS account. Advanced parameters incur a charge. For more information, see Standard and advanced parameter tiers in the AWS Systems Manager User Guide.
+- You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard parameters.
+- If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter, you must delete it and recreate it as a new standard parameter.
 
 ---
+
+*Example*
+
+```typescript
+ParameterTier.INTELLIGENT_TIERING
+```
+
 
 ##### `parameterType`<sup>Optional</sup> <a name="parameterType" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType"></a>
 
@@ -210,11 +297,18 @@ public readonly parameterType: ParameterType;
 ```
 
 - *Type:* aws-cdk-lib.aws_ssm.ParameterType
-- *Default:* "String"
+- *Default:* ParameterType.STRING
 
-Type.
+The type of SSM Parameter that you want to add.
 
 ---
+
+*Example*
+
+```typescript
+ParameterType.STRING_LIST
+```
+
 
 ##### `policies`<sup>Optional</sup> <a name="policies" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies"></a>
 
@@ -224,7 +318,7 @@ public readonly policies: string;
 
 - *Type:* string
 
-Parameter policies.
+One or more policies to apply to a SSM Parameter.
 
 > [https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html)
 
@@ -233,12 +327,23 @@ Parameter policies.
 ##### `tags`<sup>Optional</sup> <a name="tags" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags"></a>
 
 ```typescript
-public readonly tags: {[ key: string ]: string}[];
+public readonly tags: {[ key: string ]: string};
 ```
 
-- *Type:* {[ key: string ]: string}[]
+- *Type:* {[ key: string ]: string}
+
+Tags to add into the SSM Paramater that you want to add.
 
 ---
+
+*Example*
+
+```typescript
+{
+  "Name": "Value",
+}
+```
+
 
 
 
