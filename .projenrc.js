@@ -10,7 +10,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorOrganization: true,
   authorAddress: 'opensource@almamedia.dev',
   name: '@alma-cdk/cross-region-parameter',
-  description: 'Combine the power of AWS CDK & OpenAPI YAML Schema Definitions ',
+  description: 'Store AWS SSM Parameter Store Parameters into another AWS Region with AWS CDK',
   repositoryUrl: 'https://github.com/alma-cdk/cross-region-parameter.git',
   keywords: ['cdk', 'aws-cdk', 'awscdk', 'aws', 'cloudfront', 'api-gateway', 'rest-api', 'open-api', 'swagger'],
 
