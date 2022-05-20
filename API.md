@@ -9,14 +9,14 @@
 ```typescript
 import { CrossRegionParameter } from '@alma-cdk/cross-region-parameter'
 
-new CrossRegionParameter(scope: Construct, name: string, props: ICrossRegionParameterProps)
+new CrossRegionParameter(scope: Construct, name: string, props: CrossRegionParameterProps)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer.parameter.props">props</a></code> | <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps">ICrossRegionParameterProps</a></code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer.parameter.props">props</a></code> | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps">CrossRegionParameterProps</a></code> | *No description.* |
 
 ---
 
@@ -34,7 +34,7 @@ new CrossRegionParameter(scope: Construct, name: string, props: ICrossRegionPara
 
 ##### `props`<sup>Required</sup> <a name="props" id="@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer.parameter.props"></a>
 
-- *Type:* <a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps">ICrossRegionParameterProps</a>
+- *Type:* <a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps">CrossRegionParameterProps</a>
 
 ---
 
@@ -101,33 +101,36 @@ The tree node.
 ---
 
 
+## Structs <a name="Structs" id="Structs"></a>
 
+### CrossRegionParameterProps <a name="CrossRegionParameterProps" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps"></a>
 
-## Protocols <a name="Protocols" id="Protocols"></a>
+#### Initializer <a name="Initializer" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.Initializer"></a>
 
-### ICrossRegionParameterProps <a name="ICrossRegionParameterProps" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps"></a>
+```typescript
+import { CrossRegionParameterProps } from '@alma-cdk/cross-region-parameter'
 
-- *Implemented By:* <a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps">ICrossRegionParameterProps</a>
-
+const crossRegionParameterProps: CrossRegionParameterProps = { ... }
+```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.value">value</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.allowedPattern">allowedPattern</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.keyId">keyId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | Tier. |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | Type. |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | Parameter policies. |
-| <code><a href="#@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}[]</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value">value</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern">allowedPattern</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId">keyId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | Tier. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | Type. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | Parameter policies. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}[]</code> | *No description.* |
 
 ---
 
-##### `description`<sup>Required</sup> <a name="description" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.description"></a>
+##### `description`<sup>Required</sup> <a name="description" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description"></a>
 
 ```typescript
 public readonly description: string;
@@ -137,7 +140,7 @@ public readonly description: string;
 
 ---
 
-##### `name`<sup>Required</sup> <a name="name" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.name"></a>
+##### `name`<sup>Required</sup> <a name="name" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name"></a>
 
 ```typescript
 public readonly name: string;
@@ -147,7 +150,7 @@ public readonly name: string;
 
 ---
 
-##### `region`<sup>Required</sup> <a name="region" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.region"></a>
+##### `region`<sup>Required</sup> <a name="region" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region"></a>
 
 ```typescript
 public readonly region: string;
@@ -157,7 +160,7 @@ public readonly region: string;
 
 ---
 
-##### `value`<sup>Required</sup> <a name="value" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.value"></a>
+##### `value`<sup>Required</sup> <a name="value" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value"></a>
 
 ```typescript
 public readonly value: string;
@@ -167,7 +170,7 @@ public readonly value: string;
 
 ---
 
-##### `allowedPattern`<sup>Optional</sup> <a name="allowedPattern" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.allowedPattern"></a>
+##### `allowedPattern`<sup>Optional</sup> <a name="allowedPattern" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern"></a>
 
 ```typescript
 public readonly allowedPattern: string;
@@ -177,7 +180,7 @@ public readonly allowedPattern: string;
 
 ---
 
-##### `keyId`<sup>Optional</sup> <a name="keyId" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.keyId"></a>
+##### `keyId`<sup>Optional</sup> <a name="keyId" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId"></a>
 
 ```typescript
 public readonly keyId: string;
@@ -187,7 +190,7 @@ public readonly keyId: string;
 
 ---
 
-##### `parameterTier`<sup>Optional</sup> <a name="parameterTier" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.parameterTier"></a>
+##### `parameterTier`<sup>Optional</sup> <a name="parameterTier" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier"></a>
 
 ```typescript
 public readonly parameterTier: ParameterTier;
@@ -200,7 +203,7 @@ Tier.
 
 ---
 
-##### `parameterType`<sup>Optional</sup> <a name="parameterType" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.parameterType"></a>
+##### `parameterType`<sup>Optional</sup> <a name="parameterType" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType"></a>
 
 ```typescript
 public readonly parameterType: ParameterType;
@@ -213,7 +216,7 @@ Type.
 
 ---
 
-##### `policies`<sup>Optional</sup> <a name="policies" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.policies"></a>
+##### `policies`<sup>Optional</sup> <a name="policies" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies"></a>
 
 ```typescript
 public readonly policies: string;
@@ -227,7 +230,7 @@ Parameter policies.
 
 ---
 
-##### `tags`<sup>Optional</sup> <a name="tags" id="@alma-cdk/cross-region-parameter.ICrossRegionParameterProps.property.tags"></a>
+##### `tags`<sup>Optional</sup> <a name="tags" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags"></a>
 
 ```typescript
 public readonly tags: {[ key: string ]: string}[];
@@ -236,4 +239,6 @@ public readonly tags: {[ key: string ]: string}[];
 - *Type:* {[ key: string ]: string}[]
 
 ---
+
+
 

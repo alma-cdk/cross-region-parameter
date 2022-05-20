@@ -9,35 +9,35 @@ type Tag = {
   [key: string]: string;
 }
 
-export interface ICrossRegionParameterProps {
-  region: string;
-  name: string;
-  description: string;
-  value: string;
-  allowedPattern?: string;
-  keyId?: string;
+export interface CrossRegionParameterProps {
+  readonly region: string;
+  readonly name: string;
+  readonly description: string;
+  readonly value: string;
+  readonly allowedPattern?: string;
+  readonly keyId?: string;
 
   /**
    * Tier
    * @default
    * "Standard"
    */
-  parameterTier?: ssm.ParameterTier;
+  readonly parameterTier?: ssm.ParameterTier;
 
   /**
    * Type
    * @default
    * "String"
    */
-  parameterType?: ssm.ParameterType;
-  tags?: Tag[];
+  readonly parameterType?: ssm.ParameterType;
+  readonly tags?: Tag[];
 
   /**
    * Parameter policies
    * @link https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SSM.html#putParameter-property
    * @link https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html
    */
-  policies?: string;
+  readonly policies?: string;
 }
 
 export enum OnEvent {
@@ -47,7 +47,7 @@ export enum OnEvent {
 }
 
 export class CrossRegionParameter extends Construct {
-  constructor(scope: Construct, name: string, props: ICrossRegionParameterProps) {
+  constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
     super(scope, name);
 
     const st = this.definePolicy(props);
@@ -71,12 +71,12 @@ export class CrossRegionParameter extends Construct {
     customResource.node.addDependency(role);
   }
 
-  private definePhysicalResourceId(props: ICrossRegionParameterProps): cr.PhysicalResourceId {
+  private definePhysicalResourceId(props: CrossRegionParameterProps): cr.PhysicalResourceId {
     const { region, name } = props;
     return cr.PhysicalResourceId.of(`CrossRegionParameter${pascalCase(region)}${pascalCase(name)}`);
   }
 
-  private defineCreateUpdateSdkCall(eventType: OnEvent, props: ICrossRegionParameterProps): cr.AwsSdkCall {
+  private defineCreateUpdateSdkCall(eventType: OnEvent, props: CrossRegionParameterProps): cr.AwsSdkCall {
     const {
       region,
       name,
@@ -110,7 +110,7 @@ export class CrossRegionParameter extends Construct {
     };
   }
 
-  private defineDeleteSdkCall(props: ICrossRegionParameterProps): cr.AwsSdkCall {
+  private defineDeleteSdkCall(props: CrossRegionParameterProps): cr.AwsSdkCall {
 
     const { region, name } = props;
 
@@ -125,7 +125,7 @@ export class CrossRegionParameter extends Construct {
     };
   }
 
-  private definePolicy(props: ICrossRegionParameterProps): iam.PolicyStatement {
+  private definePolicy(props: CrossRegionParameterProps): iam.PolicyStatement {
     const { region, name } = props;
 
     // Depending if path paramater or simple parameter we may or may not need to set a slash separator to resource ARN

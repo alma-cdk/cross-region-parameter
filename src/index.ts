@@ -1,1 +1,1 @@
-export { CrossRegionParameter, ICrossRegionParameterProps } from './parameter';
+export { CrossRegionParameter, CrossRegionParameterProps as ICrossRegionParameterProps } from './parameter';
