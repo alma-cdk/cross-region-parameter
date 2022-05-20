@@ -1,6 +1,6 @@
 {
   "name": "@alma-cdk/cross-region-parameter",
-  "description": "Combine the power of AWS CDK & OpenAPI YAML Schema Definitions ",
+  "description": "Store AWS SSM Parameter Store Parameters into another AWS Region with AWS CDK",
   "repository": {
     "type": "git",
     "url": "https://github.com/alma-cdk/cross-region-parameter.git"

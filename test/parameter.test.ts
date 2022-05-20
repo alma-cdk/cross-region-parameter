@@ -4,7 +4,7 @@ import { CrossRegionParameter } from '../src/parameter';
 
 process.env.ENVIRONMENT = 'test';
 
-test('Api Domain for production', () => {
+test('Basic usage', () => {
   const app = new cdk.App();
   const stack = new cdk.Stack(app, 'MockStack');
 
