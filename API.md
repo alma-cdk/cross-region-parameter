@@ -4,6 +4,8 @@
 
 ### CrossRegionParameter <a name="CrossRegionParameter" id="@alma-cdk/cross-region-parameter.CrossRegionParameter"></a>
 
+Cross-Region SSM Parameter.
+
 #### Initializers <a name="Initializers" id="@alma-cdk/cross-region-parameter.CrossRegionParameter.Initializer"></a>
 
 ```typescript

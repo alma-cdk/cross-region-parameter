@@ -15,7 +15,20 @@ export enum OnEvent {
   ON_DELETE='onDelete',
 }
 
+/** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
+
+  /**
+   * Define a new Cross-Region SSM Parameter.
+   *
+   * @example
+   * new CrossRegionParameter(this, 'SayHiToSweden', {
+   *   region: 'eu-north-1',
+   *   name: '/parameter/path/message',
+   *   description: 'Some message for the Swedes',
+   *   value: 'Hej då!',
+   * });
+   */
   constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
     super(scope, name);
 
