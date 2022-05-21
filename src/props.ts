@@ -1,8 +1,6 @@
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { AllowedPattern, ParameterDescription, ParameterKeyId } from 'aws-sdk/clients/ssm';
 
-//export { AllowedPattern, ParameterDescription, ParameterKeyId, Tag, TagKey, TagValue } from 'aws-sdk/clients/ssm';
-
 export interface CrossRegionParameterProps {
 
   /**
