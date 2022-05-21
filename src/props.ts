@@ -1,4 +1,7 @@
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import { AllowedPattern, ParameterDescription, ParameterKeyId } from 'aws-sdk/clients/ssm';
+
+//export { AllowedPattern, ParameterDescription, ParameterKeyId, Tag, TagKey, TagValue } from 'aws-sdk/clients/ssm';
 
 export interface CrossRegionParameterProps {
 
@@ -26,7 +29,7 @@ export interface CrossRegionParameterProps {
    * @example
    * 'Some message for the Swedes'
    */
-  readonly description: string;
+  readonly description: ParameterDescription;
 
   /**
    * The SSM Parameter value that you want to add.
@@ -51,7 +54,7 @@ export interface CrossRegionParameterProps {
    * @example
    * '^\d+$'
    */
-  readonly allowedPattern?: string;
+  readonly allowedPattern?: AllowedPattern;
 
   /**
    * The AWS Key Management Service (AWS KMS) ID that you want to use to encrypt a parameter. Either the default AWS KMS key automatically assigned to your AWS account or a custom key. Required for parameters that use the SecureString data type.
@@ -65,7 +68,7 @@ export interface CrossRegionParameterProps {
    * @example
    * '1234abcd-12ab-34cd-56ef-1234567890ab'
    */
-  readonly keyId?: string;
+  readonly keyId?: ParameterKeyId;
 
   /**
    * The SSM Parameter Tier to assign to a parameter.
@@ -106,11 +109,14 @@ export interface CrossRegionParameterProps {
    * @todo This might be incorrect type
    *
    * @example
-   * {
-   *   "Name": "Value",
-   * }
+   * [
+   *   {
+   *     Key: 'STRING_VALUE',
+   *     Value: 'STRING_VALUE'
+   *   },
+   * ]
    */
-  readonly tags?: Record<string, string>;
+  readonly tags?: TagPropList;
 
   /**
    * One or more policies to apply to a SSM Parameter.
@@ -119,4 +125,13 @@ export interface CrossRegionParameterProps {
    * @see https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html
    */
   readonly policies?: string;
+}
+
+/** List of Tag properties applied to resulting SSM Parameter. */
+export type TagPropList = TagProp[];
+
+/** Tag properties. */
+export interface TagProp {
+  readonly key: string;
+  readonly value: string;
 }

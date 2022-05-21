@@ -2,10 +2,10 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cdk from 'aws-cdk-lib/core';
 import * as cr from 'aws-cdk-lib/custom-resources';
+import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
-import { CrossRegionParameterProps } from './props';
-
+import { CrossRegionParameterProps, TagPropList } from './props';
 
 export enum OnEvent {
   ON_CREATE='onCreate',
@@ -59,24 +59,34 @@ export class CrossRegionParameter extends Construct {
       policies,
     } = props;
 
+    const parameters: PutParameterRequest = {
+      Name: name, /* required */
+      Value: value, /* required */
+      AllowedPattern: allowedPattern,
+      Description: description,
+      KeyId: keyId,
+      Overwrite: eventType !== OnEvent.ON_CREATE,
+      Policies: policies,
+      Tags: this.tagPropsToTagParams(tags),
+      Tier: tier,
+      Type: type,
+    };
+
     return {
       physicalResourceId: this.definePhysicalResourceId(props),
       region,
       service: 'SSM',
       action: 'putParameter',
-      parameters: {
-        Name: name, /* required */
-        Value: value, /* required */
-        AllowedPattern: allowedPattern,
-        Description: description,
-        KeyId: keyId,
-        Overwrite: eventType !== OnEvent.ON_CREATE,
-        Policies: policies,
-        Tags: tags, // TODO this might be incorrect type
-        Tier: tier,
-        Type: type,
-      },
+      parameters,
     };
+  }
+
+  /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
+  private tagPropsToTagParams(tags?: TagPropList): TagList | undefined {
+    return tags?.map(t => ({
+      Key: t.key,
+      Value: t.value,
+    }));
   }
 
   private defineDeleteSdkCall(props: CrossRegionParameterProps): cr.AwsSdkCall {

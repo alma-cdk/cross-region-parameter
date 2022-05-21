@@ -126,7 +126,7 @@ const crossRegionParameterProps: CrossRegionParameterProps = { ... }
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | The SSM Parameter Tier to assign to a parameter. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | The type of SSM Parameter that you want to add. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | One or more policies to apply to a SSM Parameter. |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to add into the SSM Paramater that you want to add. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code><a href="#@alma-cdk/cross-region-parameter.TagProp">TagProp</a>[]</code> | Tags to add into the SSM Paramater that you want to add. |
 
 ---
 
@@ -327,10 +327,10 @@ One or more policies to apply to a SSM Parameter.
 ##### `tags`<sup>Optional</sup> <a name="tags" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags"></a>
 
 ```typescript
-public readonly tags: {[ key: string ]: string};
+public readonly tags: TagProp[];
 ```
 
-- *Type:* {[ key: string ]: string}
+- *Type:* <a href="#@alma-cdk/cross-region-parameter.TagProp">TagProp</a>[]
 
 Tags to add into the SSM Paramater that you want to add.
 
@@ -339,11 +339,53 @@ Tags to add into the SSM Paramater that you want to add.
 *Example*
 
 ```typescript
-{
-  "Name": "Value",
-}
+[
+  {
+    Key: 'STRING_VALUE',
+    Value: 'STRING_VALUE'
+  },
+]
 ```
 
+
+### TagProp <a name="TagProp" id="@alma-cdk/cross-region-parameter.TagProp"></a>
+
+#### Initializer <a name="Initializer" id="@alma-cdk/cross-region-parameter.TagProp.Initializer"></a>
+
+```typescript
+import { TagProp } from '@alma-cdk/cross-region-parameter'
+
+const tagProp: TagProp = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@alma-cdk/cross-region-parameter.TagProp.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@alma-cdk/cross-region-parameter.TagProp.property.value">value</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="@alma-cdk/cross-region-parameter.TagProp.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="@alma-cdk/cross-region-parameter.TagProp.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* string
+
+---
 
 
 

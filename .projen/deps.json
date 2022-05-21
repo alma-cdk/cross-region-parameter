@@ -34,6 +34,10 @@
       "type": "build"
     },
     {
+      "name": "aws-sdk",
+      "type": "build"
+    },
+    {
       "name": "constructs",
       "version": "10.0.0",
       "type": "build"
@@ -107,6 +111,10 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "aws-sdk",
+      "type": "bundled"
     },
     {
       "name": "change-case",
