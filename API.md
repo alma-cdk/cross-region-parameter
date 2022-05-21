@@ -350,6 +350,8 @@ Tags to add into the SSM Paramater that you want to add.
 
 ### TagProp <a name="TagProp" id="@alma-cdk/cross-region-parameter.TagProp"></a>
 
+Tag properties.
+
 #### Initializer <a name="Initializer" id="@alma-cdk/cross-region-parameter.TagProp.Initializer"></a>
 
 ```typescript

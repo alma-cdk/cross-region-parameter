@@ -1,10 +1,12 @@
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cdk from 'aws-cdk-lib/core';
+import { Stack } from 'aws-cdk-lib/core';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
+import { addError } from './errors/add';
 import { CrossRegionParameterProps, TagPropList } from './props';
 
 export enum OnEvent {
@@ -17,9 +19,9 @@ export class CrossRegionParameter extends Construct {
   constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
     super(scope, name);
 
-    const st = this.definePolicy(props);
+    this.validateRegion(props.region);
 
-    // TODO validate regions (should not match)
+    const st = this.definePolicy(props);
 
     const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
 
@@ -79,6 +81,14 @@ export class CrossRegionParameter extends Construct {
       action: 'putParameter',
       parameters,
     };
+  }
+
+  /** Ensure Parameter target region is not the same as the current "source" region. */
+  private validateRegion(region: string): void {
+    const currentRegion = Stack.of(this).region;
+    if (currentRegion === region) {
+      addError(this, `Parameter target region ${region} can not be the same as source region ${currentRegion}`);
+    }
   }
 
   /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
