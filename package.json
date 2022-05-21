@@ -75,15 +75,13 @@
     "change-case"
   ],
   "keywords": [
-    "api-gateway",
     "aws",
     "aws-cdk",
     "awscdk",
     "cdk",
-    "cloudfront",
-    "open-api",
-    "rest-api",
-    "swagger"
+    "cross-region",
+    "parameter",
+    "ssm"
   ],
   "engines": {
     "node": ">= 14.17.6"

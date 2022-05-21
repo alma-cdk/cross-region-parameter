@@ -12,7 +12,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: '@alma-cdk/cross-region-parameter',
   description: 'Store AWS SSM Parameter Store Parameters into another AWS Region with AWS CDK',
   repositoryUrl: 'https://github.com/alma-cdk/cross-region-parameter.git',
-  keywords: ['cdk', 'aws-cdk', 'awscdk', 'aws', 'cloudfront', 'api-gateway', 'rest-api', 'open-api', 'swagger'],
+  keywords: ['cdk', 'aws-cdk', 'awscdk', 'aws', 'cross-region', 'ssm', 'parameter'],
 
   // Publish configuration
   defaultReleaseBranch: 'main',
