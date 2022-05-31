@@ -1,12 +1,11 @@
+import { Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import * as cdk from 'aws-cdk-lib/core';
 import { CrossRegionParameter } from '../src/parameter';
 
 process.env.ENVIRONMENT = 'test';
 
 test('Basic usage', () => {
-  const app = new cdk.App();
-  const stack = new cdk.Stack(app, 'MockStack');
+  const stack = new Stack();
 
   new CrossRegionParameter(stack, 'SayHiToSweden', {
     region: 'eu-north-1',

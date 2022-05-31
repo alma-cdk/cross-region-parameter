@@ -1,7 +1,6 @@
+import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
-import * as cdk from 'aws-cdk-lib/core';
-import { Stack } from 'aws-cdk-lib/core';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
 import { pascalCase } from 'change-case';
@@ -135,7 +134,7 @@ export class CrossRegionParameter extends Construct {
 
     return new iam.PolicyStatement({
       actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
-      resources: [`arn:aws:ssm:${region}:${cdk.Stack.of(this).account}:parameter${separator}${name}`],
+      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}${name}`],
       effect: iam.Effect.ALLOW,
     });
   }
