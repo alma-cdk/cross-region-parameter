@@ -31,7 +31,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'constructs',
     'aws-cdk-lib',
     'aws-sdk',
-    '@types/prettier@v2.6.0',
+    '@types/prettier@2.6.0',
     '@types/change-case',
   ],
   bundledDeps: [
