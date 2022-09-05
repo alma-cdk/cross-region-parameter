@@ -18,6 +18,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   packageManager: javascript.NodePackageManager.NPM,
   npmAccess: javascript.NpmAccess.PUBLIC,
+  python: {
+    distName: 'alma-cdk.cross-region-parameter',
+    module: 'alma_cdk.cross_region_parameter',
+  },
 
   // Dependencies
   minNodeVersion: nodejsVersion,
