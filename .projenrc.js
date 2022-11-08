@@ -22,6 +22,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: 'alma-cdk.cross-region-parameter',
     module: 'alma_cdk.cross_region_parameter',
   },
+  publishToGo: {
+    moduleName: 'github.com/alma-cdk/cross-region-parameter-go',
+  },
 
   // Dependencies
   minNodeVersion: nodejsVersion,
