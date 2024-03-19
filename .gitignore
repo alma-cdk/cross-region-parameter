@@ -56,4 +56,5 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+!/sonar-project.properties
 !/.projenrc.ts

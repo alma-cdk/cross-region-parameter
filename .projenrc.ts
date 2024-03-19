@@ -1,4 +1,4 @@
-import { awscdk, javascript } from 'projen';
+import { TextFile, awscdk, javascript } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -73,5 +73,15 @@ project.buildWorkflow?.addPostBuildSteps(
   },
 );
 
+/**
+ * Sonarcloud properties file
+ */
+new TextFile(project, 'sonar-project.properties', {
+  lines: [
+    'sonar.host.url=https://sonarcloud.io',
+    `sonar.projectKey=${project.name.replace('@', '').replace('/', '_')}`,
+    `sonar.organization=${project.name.replace('@', '').split('/')[0]}`,
+  ],
+});
 
 project.synth();
