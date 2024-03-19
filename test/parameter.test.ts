@@ -1,5 +1,6 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
+import { addressOf } from 'constructs/lib/private/uniqueid';
 import { CrossRegionParameter } from '../src/parameter';
 
 process.env.ENVIRONMENT = 'test';
@@ -8,7 +9,7 @@ test('Basic usage', () => {
   const app = new App();
   const stack = new Stack(app, 'TestStack');
 
-  new CrossRegionParameter(stack, 'SayHiToSweden', {
+  const crp = new CrossRegionParameter(stack, 'SayHiToSweden', {
     region: 'eu-north-1',
     name: '/parameter/path/message',
     description: 'Some message for the Swedes!',
@@ -41,12 +42,12 @@ test('Basic usage', () => {
           },
           Condition: {
             StringEquals: {
-              'aws:ResourceTag/@alma-cdk/cross-region-parameter:fromConstruct': 'TestStack/SayHiToSweden',
+              'aws:ResourceTag/@alma-cdk/cross-region-parameter:node.addr':
+								addressOf(crp.node.scopes.map((s) => s.node.id)),
             },
           },
         },
       ],
     },
   });
-
 });
