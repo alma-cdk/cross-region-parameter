@@ -39,10 +39,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-sdk/client-ssm',
     '@types/prettier@2.6.0',
     '@types/change-case',
+    'ts-deepmerge',
   ],
   bundledDeps: [
     '@aws-sdk/client-ssm',
     'change-case',
+    'ts-deepmerge',
   ],
 
   // Gitignore

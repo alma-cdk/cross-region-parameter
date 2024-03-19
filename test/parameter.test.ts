@@ -33,9 +33,14 @@ test('Basic usage', () => {
                 {
                   Ref: 'AWS::AccountId',
                 },
-                ':parameter/parameter/path/message',
+                ':parameter*',
               ],
             ],
+          },
+          Condition: {
+            StringEquals: {
+              'aws:ResourceTag/fromConstruct': 'stack/SayHiToSweden',
+            },
           },
         },
       ],

@@ -133,39 +133,18 @@ const crossRegionParameterProps: CrossRegionParameterProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | Information about the SSM Parameter that you want to add. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name">name</a></code> | <code>string</code> | SSM Parameter name. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.region">region</a></code> | <code>string</code> | Target region for the parameter. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.value">value</a></code> | <code>string</code> | The SSM Parameter value that you want to add. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.allowedPattern">allowedPattern</a></code> | <code>string</code> | A regular expression used to validate the SSM Parameter Value. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description">description</a></code> | <code>string</code> | Information about the SSM Parameter that you want to add. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId">keyId</a></code> | <code>string</code> | The AWS Key Management Service (AWS KMS) ID that you want to use to encrypt a parameter. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterTier">parameterTier</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterTier</code> | The SSM Parameter Tier to assign to a parameter. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType">parameterType</a></code> | <code>aws-cdk-lib.aws_ssm.ParameterType</code> | The type of SSM Parameter that you want to add. |
 | <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.policies">policies</a></code> | <code>string</code> | One or more policies to apply to a SSM Parameter. |
-| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code><a href="#@alma-cdk/cross-region-parameter.TagProp">TagProp</a>[]</code> | Tags to add into the SSM Paramater that you want to add. |
+| <code><a href="#@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.tags">tags</a></code> | <code><a href="#@alma-cdk/cross-region-parameter.TagProp">TagProp</a>[]</code> | Tags to add into the SSM Parameter that you want to add. |
 
 ---
-
-##### `description`<sup>Required</sup> <a name="description" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description"></a>
-
-```typescript
-public readonly description: string;
-```
-
-- *Type:* string
-
-Information about the SSM Parameter that you want to add.
-
-Required by this construct (AWS considers it as optional).
-
----
-
-*Example*
-
-```typescript
-'Some message for the Swedes'
-```
-
 
 ##### `name`<sup>Required</sup> <a name="name" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.name"></a>
 
@@ -254,6 +233,27 @@ you can specify the following: `^\d+$`.
 ```
 
 
+##### `description`<sup>Optional</sup> <a name="description" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Information about the SSM Parameter that you want to add.
+
+Required by this construct (AWS considers it as optional).
+
+---
+
+*Example*
+
+```typescript
+'Some message for the Swedes'
+```
+
+
 ##### `keyId`<sup>Optional</sup> <a name="keyId" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.keyId"></a>
 
 ```typescript
@@ -306,7 +306,9 @@ ParameterTier.INTELLIGENT_TIERING
 ```
 
 
-##### `parameterType`<sup>Optional</sup> <a name="parameterType" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType"></a>
+##### ~~`parameterType`~~<sup>Optional</sup> <a name="parameterType" id="@alma-cdk/cross-region-parameter.CrossRegionParameterProps.property.parameterType"></a>
+
+- *Deprecated:* use parameterDataType
 
 ```typescript
 public readonly parameterType: ParameterType;
@@ -348,7 +350,7 @@ public readonly tags: TagProp[];
 
 - *Type:* <a href="#@alma-cdk/cross-region-parameter.TagProp">TagProp</a>[]
 
-Tags to add into the SSM Paramater that you want to add.
+Tags to add into the SSM Parameter that you want to add.
 
 ---
 

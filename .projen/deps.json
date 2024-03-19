@@ -86,6 +86,10 @@
       "type": "build"
     },
     {
+      "name": "ts-deepmerge",
+      "type": "build"
+    },
+    {
       "name": "ts-jest",
       "type": "build"
     },
@@ -103,6 +107,10 @@
     },
     {
       "name": "change-case",
+      "type": "bundled"
+    },
+    {
+      "name": "ts-deepmerge",
       "type": "bundled"
     },
     {

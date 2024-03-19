@@ -5,6 +5,7 @@ import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
+import { merge } from 'ts-deepmerge';
 import { addError } from './errors/add';
 import { CrossRegionParameterProps, TagPropList } from './props';
 
@@ -16,7 +17,8 @@ export enum OnEvent {
 
 /** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
-
+  private readonly uniqueTagKey: string = 'fromConstruct';
+  private readonly uniqueTagValue: string;
   /**
    * Define a new Cross-Region SSM Parameter.
    *
@@ -30,10 +32,14 @@ export class CrossRegionParameter extends Construct {
    */
   constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
     super(scope, name);
+    const withDefaults = merge(props, {
+      tags: [{ key: this.uniqueTagKey, value: this.node.path }],
+    });
+    this.uniqueTagValue = this.node.path;
 
-    this.validateRegion(props.region);
+    this.validateRegion(withDefaults.region);
 
-    const st = this.definePolicy(props);
+    const st = this.definePolicy(withDefaults);
 
     const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
 
@@ -44,9 +50,9 @@ export class CrossRegionParameter extends Construct {
     role.attachInlinePolicy(policy);
 
     const customResource = new cr.AwsCustomResource(this, 'AwsCustomResource', {
-      onCreate: this.defineCreateUpdateSdkCall(OnEvent.ON_CREATE, props),
-      onUpdate: this.defineCreateUpdateSdkCall(OnEvent.ON_UPDATE, props),
-      onDelete: this.defineDeleteSdkCall(props),
+      onCreate: this.defineCreateUpdateSdkCall(OnEvent.ON_CREATE, withDefaults),
+      onUpdate: this.defineCreateUpdateSdkCall(OnEvent.ON_UPDATE, withDefaults),
+      onDelete: this.defineDeleteSdkCall(withDefaults),
       policy: cr.AwsCustomResourcePolicy.fromStatements([st]),
       role,
     });
@@ -135,8 +141,13 @@ export class CrossRegionParameter extends Construct {
 
     return new iam.PolicyStatement({
       actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
-      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}${name}`],
+      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}*`],
       effect: iam.Effect.ALLOW,
+      conditions: {
+        StringEquals: {
+          [`aws:ResourceTag/${this.uniqueTagKey}`]: this.uniqueTagValue,
+        },
+      },
     });
   }
 }

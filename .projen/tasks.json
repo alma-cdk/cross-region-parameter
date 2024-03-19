@@ -314,13 +314,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/client-ssm,@types/change-case,@types/jest,@types/prettier,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,jsii,projen,ts-jest,ts-node,typescript,change-case"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/client-ssm,@types/change-case,@types/jest,@types/prettier,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,jsii,projen,ts-deepmerge,ts-jest,ts-node,typescript,change-case"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-sdk/client-ssm @types/change-case @types/jest @types/node @types/prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen standard-version ts-jest ts-node typescript change-case aws-cdk-lib constructs"
+          "exec": "npm update @aws-sdk/client-ssm @types/change-case @types/jest @types/node @types/prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen standard-version ts-deepmerge ts-jest ts-node typescript change-case aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
