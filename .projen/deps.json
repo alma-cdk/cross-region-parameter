@@ -1,10 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "@aws-sdk/client-ssm",
-      "type": "build"
-    },
-    {
       "name": "@types/change-case",
       "type": "build"
     },
@@ -83,10 +79,6 @@
     {
       "name": "standard-version",
       "version": "^9",
-      "type": "build"
-    },
-    {
-      "name": "ts-deepmerge",
       "type": "build"
     },
     {

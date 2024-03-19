@@ -38,7 +38,6 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-ssm": "^3.535.0",
     "@types/change-case": "^2.3.1",
     "@types/jest": "^27",
     "@types/node": "^18",
@@ -59,7 +58,6 @@
     "jsii-rosetta": "~5.3.24",
     "projen": "^0.80.11",
     "standard-version": "^9",
-    "ts-deepmerge": "^7.0.0",
     "ts-jest": "^27",
     "ts-node": "^10.9.2",
     "typescript": "^4.9.5"
