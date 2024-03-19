@@ -18,14 +18,21 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   packageManager: javascript.NodePackageManager.NPM,
   npmAccess: javascript.NpmAccess.PUBLIC,
-  python: {
-    distName: 'alma-cdk.cross-region-parameter',
-    module: 'alma_cdk.cross_region_parameter',
-  },
+  // python: {
+  //   distName: 'alma-cdk.cross-region-parameter',
+  //   module: 'alma_cdk.cross_region_parameter',
+  // },
   publishToGo: {
     moduleName: 'github.com/alma-cdk/cross-region-parameter-go',
   },
-
+  majorVersion: 0,
+  releaseBranches: {
+    beta: {
+      majorVersion: 1,
+      prerelease: 'beta',
+      npmDistTag: 'beta',
+    },
+  },
   // Dependencies
   minNodeVersion: nodejsVersion,
   cdkVersion: '2.24.1',
