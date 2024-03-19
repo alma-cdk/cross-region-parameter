@@ -36,12 +36,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.133.0',
   constructsVersion: '10.3.0',
   devDeps: [
-    'aws-sdk',
+    '@aws-sdk/client-ssm',
     '@types/prettier@2.6.0',
     '@types/change-case',
   ],
   bundledDeps: [
-    'aws-sdk',
+    '@aws-sdk/client-ssm',
     'change-case',
   ],
 

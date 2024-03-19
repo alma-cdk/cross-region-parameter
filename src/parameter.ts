@@ -1,8 +1,8 @@
+import { PutParameterCommandInput, Tag } from '@aws-sdk/client-ssm';
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cr from 'aws-cdk-lib/custom-resources';
-import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
 import { addError } from './errors/add';
@@ -73,7 +73,7 @@ export class CrossRegionParameter extends Construct {
       policies,
     } = props;
 
-    const parameters: PutParameterRequest = {
+    const parameters: PutParameterCommandInput = {
       Name: name, /* required */
       Value: value, /* required */
       AllowedPattern: allowedPattern,
@@ -83,7 +83,8 @@ export class CrossRegionParameter extends Construct {
       Policies: policies,
       Tags: this.tagPropsToTagParams(tags),
       Tier: tier,
-      Type: type,
+      DataType: type,
+
     };
 
     return {
@@ -104,7 +105,7 @@ export class CrossRegionParameter extends Construct {
   }
 
   /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
-  private tagPropsToTagParams(tags?: TagPropList): TagList | undefined {
+  private tagPropsToTagParams(tags?: TagPropList): Tag[] | undefined {
     return tags?.map(t => ({
       Key: t.key,
       Value: t.value,
@@ -118,8 +119,8 @@ export class CrossRegionParameter extends Construct {
     return {
       physicalResourceId: this.definePhysicalResourceId(props),
       region,
-      service: 'SSM',
-      action: 'deleteParameter',
+      service: 'ssm',
+      action: 'DeleteParameter',
       parameters: {
         Name: name,
       },
@@ -129,7 +130,7 @@ export class CrossRegionParameter extends Construct {
   private definePolicy(props: CrossRegionParameterProps): iam.PolicyStatement {
     const { region, name } = props;
 
-    // Depending if path paramater or simple parameter we may or may not need to set a slash separator to resource ARN
+    // Depending if path parameter or simple parameter we may or may not need to set a slash separator to resource ARN
     const separator = name.indexOf('/') === 0 ? '' : '/';
 
     return new iam.PolicyStatement({
