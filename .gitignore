@@ -30,6 +30,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.scannerwork/
 .DS_Store
 /examples/**/cdk.context.json
 /examples/**/node_modules

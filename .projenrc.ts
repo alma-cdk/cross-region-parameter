@@ -47,6 +47,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Gitignore
   gitignore: [
+    '.scannerwork/',
     '.DS_Store',
     '/examples/**/cdk.context.json',
     '/examples/**/node_modules',
