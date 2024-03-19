@@ -24,6 +24,7 @@ test('Basic usage', () => {
           Action: [
             'ssm:PutParameter',
             'ssm:DeleteParameter',
+            'ssm:AddTagsToResource',
           ],
           Effect: 'Allow',
           Resource: {
