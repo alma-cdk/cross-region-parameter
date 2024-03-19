@@ -82,6 +82,9 @@ new TextFile(project, 'sonar-project.properties', {
     'sonar.host.url=https://sonarcloud.io',
     `sonar.projectKey=${project.name.replace('@', '').replace('/', '_')}`,
     `sonar.organization=${project.name.replace('@', '').split('/')[0]}`,
+    'sonar.javascript.lcov.reportPaths=./coverage/lcov.info',
+    'sonar.sources=./src',
+    'sonar.tests=./test',
   ],
 });
 
