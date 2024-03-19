@@ -1,7 +1,5 @@
 const { awscdk, TextFile, javascript } = require('projen');
 
-const nodejsVersion = '14.17.6';
-
 const project = new awscdk.AwsCdkConstructLibrary({
 
   // Metadata
@@ -18,10 +16,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   packageManager: javascript.NodePackageManager.NPM,
   npmAccess: javascript.NpmAccess.PUBLIC,
-  // python: {
-  //   distName: 'alma-cdk.cross-region-parameter',
-  //   module: 'alma_cdk.cross_region_parameter',
-  // },
+  python: {
+    distName: 'alma-cdk.cross-region-parameter',
+    module: 'alma_cdk.cross_region_parameter',
+  },
   publishToGo: {
     moduleName: 'github.com/alma-cdk/cross-region-parameter-go',
   },
@@ -34,16 +32,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
   // Dependencies
-  minNodeVersion: nodejsVersion,
-  cdkVersion: '2.24.1',
-  constructsVersion: '10.0.0',
-  peerDeps: [
-    'constructs',
-    'aws-cdk-lib',
-  ],
+  cdkVersion: '2.133.0',
+  constructsVersion: '10.3.0',
   devDeps: [
-    'constructs',
-    'aws-cdk-lib',
     'aws-sdk',
     '@types/prettier@2.6.0',
     '@types/change-case',
@@ -63,10 +54,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 
 
-});
-
-new TextFile(project, '.nvmrc', {
-  lines: [nodejsVersion],
 });
 
 project.addPackageIgnore('/examples/');
