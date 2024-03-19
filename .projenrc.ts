@@ -67,7 +67,7 @@ project.addPackageIgnore('/examples/');
  */
 const sonarCloudReportWorkflow = project.github?.addWorkflow('sonarcloud-report');
 sonarCloudReportWorkflow?.on({
-  push: { branches: ['main'] },
+  push: { branches: ['main', 'beta'] },
   pullRequest: {
     types: ['opened', 'synchronize', 'reopened'],
   },
