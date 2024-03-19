@@ -59,5 +59,19 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 project.addPackageIgnore('/examples/');
 
+/**
+ * Add a sonarcloud step to the build workflow
+ */
+project.buildWorkflow?.addPostBuildSteps(
+  {
+    name: 'SonarCloud Scan',
+    uses: 'SonarSource/sonarcloud-github-action@v2',
+    env: {
+      GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+      SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}',
+    },
+  },
+);
+
 
 project.synth();
