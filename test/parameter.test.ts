@@ -40,7 +40,7 @@ test('Basic usage', () => {
           },
           Condition: {
             StringEquals: {
-              'aws:ResourceTag/fromConstruct': 'TestStack/SayHiToSweden',
+              'aws:ResourceTag/@alma-cdk/cross-region-parameter:fromConstruct': 'TestStack/SayHiToSweden',
             },
           },
         },

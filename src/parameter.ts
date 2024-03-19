@@ -17,7 +17,7 @@ export enum OnEvent {
 
 /** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
-  private readonly uniqueTagKey: string = 'fromConstruct';
+  private readonly uniqueTagKey: string = '@alma-cdk/cross-region-parameter:fromConstruct';
   private readonly uniqueTagValue: string;
   /**
    * Define a new Cross-Region SSM Parameter.
