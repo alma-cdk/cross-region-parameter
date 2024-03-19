@@ -1,10 +1,11 @@
+import { PutParameterCommandInput, Tag } from '@aws-sdk/client-ssm';
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cr from 'aws-cdk-lib/custom-resources';
-import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
 import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
+import { merge } from 'ts-deepmerge';
 import { addError } from './errors/add';
 import { CrossRegionParameterProps, TagPropList } from './props';
 
@@ -16,7 +17,8 @@ export enum OnEvent {
 
 /** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
-
+  private readonly uniqueTagKey: string = '@alma-cdk/cross-region-parameter:fromConstruct';
+  private readonly uniqueTagValue: string;
   /**
    * Define a new Cross-Region SSM Parameter.
    *
@@ -30,10 +32,14 @@ export class CrossRegionParameter extends Construct {
    */
   constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
     super(scope, name);
+    const withDefaults = merge(props, {
+      tags: [{ key: this.uniqueTagKey, value: this.node.path }],
+    });
+    this.uniqueTagValue = this.node.path;
 
-    this.validateRegion(props.region);
+    this.validateRegion(withDefaults.region);
 
-    const st = this.definePolicy(props);
+    const st = this.definePolicy(withDefaults);
 
     const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
 
@@ -44,9 +50,9 @@ export class CrossRegionParameter extends Construct {
     role.attachInlinePolicy(policy);
 
     const customResource = new cr.AwsCustomResource(this, 'AwsCustomResource', {
-      onCreate: this.defineCreateUpdateSdkCall(OnEvent.ON_CREATE, props),
-      onUpdate: this.defineCreateUpdateSdkCall(OnEvent.ON_UPDATE, props),
-      onDelete: this.defineDeleteSdkCall(props),
+      onCreate: this.defineCreateUpdateSdkCall(OnEvent.ON_CREATE, withDefaults),
+      onUpdate: this.defineCreateUpdateSdkCall(OnEvent.ON_UPDATE, withDefaults),
+      onDelete: this.defineDeleteSdkCall(withDefaults),
       policy: cr.AwsCustomResourcePolicy.fromStatements([st]),
       role,
     });
@@ -73,7 +79,7 @@ export class CrossRegionParameter extends Construct {
       policies,
     } = props;
 
-    const parameters: PutParameterRequest = {
+    const parameters: PutParameterCommandInput = {
       Name: name, /* required */
       Value: value, /* required */
       AllowedPattern: allowedPattern,
@@ -83,7 +89,8 @@ export class CrossRegionParameter extends Construct {
       Policies: policies,
       Tags: this.tagPropsToTagParams(tags),
       Tier: tier,
-      Type: type,
+      DataType: type,
+
     };
 
     return {
@@ -104,7 +111,7 @@ export class CrossRegionParameter extends Construct {
   }
 
   /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
-  private tagPropsToTagParams(tags?: TagPropList): TagList | undefined {
+  private tagPropsToTagParams(tags?: TagPropList): Tag[] | undefined {
     return tags?.map(t => ({
       Key: t.key,
       Value: t.value,
@@ -118,8 +125,8 @@ export class CrossRegionParameter extends Construct {
     return {
       physicalResourceId: this.definePhysicalResourceId(props),
       region,
-      service: 'SSM',
-      action: 'deleteParameter',
+      service: 'ssm',
+      action: 'DeleteParameter',
       parameters: {
         Name: name,
       },
@@ -129,13 +136,18 @@ export class CrossRegionParameter extends Construct {
   private definePolicy(props: CrossRegionParameterProps): iam.PolicyStatement {
     const { region, name } = props;
 
-    // Depending if path paramater or simple parameter we may or may not need to set a slash separator to resource ARN
+    // Depending if path parameter or simple parameter we may or may not need to set a slash separator to resource ARN
     const separator = name.indexOf('/') === 0 ? '' : '/';
 
     return new iam.PolicyStatement({
       actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
-      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}${name}`],
+      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}*`],
       effect: iam.Effect.ALLOW,
+      conditions: {
+        StringEquals: {
+          [`aws:ResourceTag/${this.uniqueTagKey}`]: this.uniqueTagValue,
+        },
+      },
     });
   }
 }

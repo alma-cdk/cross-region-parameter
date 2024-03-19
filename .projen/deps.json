@@ -1,6 +1,10 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-ssm",
+      "type": "build"
+    },
+    {
       "name": "@types/change-case",
       "type": "build"
     },
@@ -26,10 +30,6 @@
     {
       "name": "@typescript-eslint/parser",
       "version": "^6",
-      "type": "build"
-    },
-    {
-      "name": "aws-sdk",
       "type": "build"
     },
     {
@@ -86,6 +86,10 @@
       "type": "build"
     },
     {
+      "name": "ts-deepmerge",
+      "type": "build"
+    },
+    {
       "name": "ts-jest",
       "type": "build"
     },
@@ -98,11 +102,15 @@
       "type": "build"
     },
     {
-      "name": "aws-sdk",
+      "name": "@aws-sdk/client-ssm",
       "type": "bundled"
     },
     {
       "name": "change-case",
+      "type": "bundled"
+    },
+    {
+      "name": "ts-deepmerge",
       "type": "bundled"
     },
     {
