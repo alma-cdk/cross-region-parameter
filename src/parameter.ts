@@ -140,7 +140,7 @@ export class CrossRegionParameter extends Construct {
     const separator = name.indexOf('/') === 0 ? '' : '/';
 
     return new iam.PolicyStatement({
-      actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
+      actions: ['ssm:PutParameter', 'ssm:DeleteParameter', 'ssm:AddTagsToResource'],
       resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}*`],
       effect: iam.Effect.ALLOW,
       conditions: {
