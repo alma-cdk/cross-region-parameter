@@ -1,11 +1,12 @@
-import { Stack } from 'aws-cdk-lib';
+import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { CrossRegionParameter } from '../src/parameter';
 
 process.env.ENVIRONMENT = 'test';
 
 test('Basic usage', () => {
-  const stack = new Stack();
+  const app = new App();
+  const stack = new Stack(app, 'TestStack');
 
   new CrossRegionParameter(stack, 'SayHiToSweden', {
     region: 'eu-north-1',
@@ -39,7 +40,7 @@ test('Basic usage', () => {
           },
           Condition: {
             StringEquals: {
-              'aws:ResourceTag/fromConstruct': 'stack/SayHiToSweden',
+              'aws:ResourceTag/fromConstruct': 'TestStack/SayHiToSweden',
             },
           },
         },
