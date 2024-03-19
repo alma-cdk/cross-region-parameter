@@ -30,6 +30,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.scannerwork/
 .DS_Store
 /examples/**/cdk.context.json
 /examples/**/node_modules
@@ -56,4 +57,5 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+!/sonar-project.properties
 !/.projenrc.ts

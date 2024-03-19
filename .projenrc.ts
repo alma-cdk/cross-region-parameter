@@ -1,4 +1,4 @@
-import { awscdk, javascript } from 'projen';
+import { TextFile, awscdk, javascript } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -47,6 +47,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Gitignore
   gitignore: [
+    '.scannerwork/',
     '.DS_Store',
     '/examples/**/cdk.context.json',
     '/examples/**/node_modules',
@@ -59,5 +60,32 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 project.addPackageIgnore('/examples/');
 
+/**
+ * Add a sonarcloud step to the build workflow
+ */
+project.buildWorkflow?.addPostBuildSteps(
+  {
+    name: 'SonarCloud Scan',
+    uses: 'SonarSource/sonarcloud-github-action@v2',
+    env: {
+      GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+      SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}',
+    },
+  },
+);
+
+/**
+ * Sonarcloud properties file
+ */
+new TextFile(project, 'sonar-project.properties', {
+  lines: [
+    'sonar.host.url=https://sonarcloud.io',
+    `sonar.projectKey=${project.name.replace('@', '').replace('/', '_')}`,
+    `sonar.organization=${project.name.replace('@', '').split('/')[0]}`,
+    'sonar.javascript.lcov.reportPaths=./coverage/lcov.info',
+    'sonar.sources=./src',
+    'sonar.tests=./test',
+  ],
+});
 
 project.synth();
