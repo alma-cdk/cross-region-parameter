@@ -63,7 +63,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.addPackageIgnore('/examples/');
 
 /**
- * Add a sonarcloud workflow to the build workflow
+ * Sonarcloud report workflow
  */
 const sonarCloudReportWorkflow = project.github?.addWorkflow('sonarcloud-report');
 sonarCloudReportWorkflow?.on({
