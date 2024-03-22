@@ -7,41 +7,53 @@ import { pascalCase } from 'change-case';
 import { Construct } from 'constructs';
 import { merge } from 'ts-deepmerge';
 import { addError } from './errors/add';
-import { CrossRegionParameterProps, TagPropList } from './props';
+import { CrossRegionParameterProps, TagPropList, TagProp } from './props';
 
 export enum OnEvent {
-  ON_CREATE='onCreate',
-  ON_UPDATE='onUpdate',
-  ON_DELETE='onDelete',
+  ON_CREATE = 'onCreate',
+  ON_UPDATE = 'onUpdate',
+  ON_DELETE = 'onDelete',
 }
 
 /** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
-  private readonly uniqueTagKey: string = '@alma-cdk/cross-region-parameter:fromConstruct';
-  private readonly uniqueTagValue: string;
+  private readonly packageName: string = '@alma-cdk/cross-region-parameter';
+
+  private readonly uniqueTag: TagProp;
   /**
-   * Define a new Cross-Region SSM Parameter.
-   *
-   * @example
-   * new CrossRegionParameter(this, 'SayHiToSweden', {
-   *   region: 'eu-north-1',
-   *   name: '/parameter/path/message',
-   *   description: 'Some message for the Swedes',
-   *   value: 'Hej då!',
-   * });
-   */
-  constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
+	 * Define a new Cross-Region SSM Parameter.
+	 *
+	 * @example
+	 * new CrossRegionParameter(this, 'SayHiToSweden', {
+	 *   region: 'eu-north-1',
+	 *   name: '/parameter/path/message',
+	 *   description: 'Some message for the Swedes',
+	 *   value: 'Hej då!',
+	 * });
+	 */
+  constructor(
+    scope: Construct,
+    name: string,
+    props: CrossRegionParameterProps,
+  ) {
     super(scope, name);
+
+    this.uniqueTag = {
+      key: `${this.packageName}:node.addr`,
+      value: this.node.addr,
+    };
+
     const withDefaults = merge(props, {
-      tags: [{ key: this.uniqueTagKey, value: this.node.path }],
+      tags: [this.uniqueTag],
     });
-    this.uniqueTagValue = this.node.path;
 
     this.validateRegion(withDefaults.region);
 
     const st = this.definePolicy(withDefaults);
 
-    const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
+    const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, {
+      statements: [st],
+    });
 
     const role = new iam.Role(this, 'ParameterCrRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
@@ -60,12 +72,19 @@ export class CrossRegionParameter extends Construct {
     customResource.node.addDependency(role);
   }
 
-  private definePhysicalResourceId(props: CrossRegionParameterProps): cr.PhysicalResourceId {
+  private definePhysicalResourceId(
+    props: CrossRegionParameterProps,
+  ): cr.PhysicalResourceId {
     const { region, name } = props;
-    return cr.PhysicalResourceId.of(`CrossRegionParameter${pascalCase(region)}${pascalCase(name)}`);
+    return cr.PhysicalResourceId.of(
+      `CrossRegionParameter${pascalCase(region)}${pascalCase(name)}`,
+    );
   }
 
-  private defineCreateUpdateSdkCall(eventType: OnEvent, props: CrossRegionParameterProps): cr.AwsSdkCall {
+  private defineCreateUpdateSdkCall(
+    eventType: OnEvent,
+    props: CrossRegionParameterProps,
+  ): cr.AwsSdkCall {
     const {
       region,
       name,
@@ -80,8 +99,8 @@ export class CrossRegionParameter extends Construct {
     } = props;
 
     const parameters: PutParameterCommandInput = {
-      Name: name, /* required */
-      Value: value, /* required */
+      Name: name /* required */,
+      Value: value /* required */,
       AllowedPattern: allowedPattern,
       Description: description,
       KeyId: keyId,
@@ -90,7 +109,6 @@ export class CrossRegionParameter extends Construct {
       Tags: this.tagPropsToTagParams(tags),
       Tier: tier,
       DataType: type,
-
     };
 
     return {
@@ -106,20 +124,22 @@ export class CrossRegionParameter extends Construct {
   private validateRegion(region: string): void {
     const currentRegion = Stack.of(this).region;
     if (currentRegion === region) {
-      addError(this, `Parameter target region ${region} can not be the same as source region ${currentRegion}`);
+      addError(
+        this,
+        `Parameter target region ${region} can not be the same as source region ${currentRegion}`,
+      );
     }
   }
 
   /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
   private tagPropsToTagParams(tags?: TagPropList): Tag[] | undefined {
-    return tags?.map(t => ({
+    return tags?.map((t) => ({
       Key: t.key,
       Value: t.value,
     }));
   }
 
   private defineDeleteSdkCall(props: CrossRegionParameterProps): cr.AwsSdkCall {
-
     const { region, name } = props;
 
     return {
@@ -140,12 +160,20 @@ export class CrossRegionParameter extends Construct {
     const separator = name.indexOf('/') === 0 ? '' : '/';
 
     return new iam.PolicyStatement({
-      actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
-      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}*`],
+      actions: [
+        'ssm:PutParameter',
+        'ssm:DeleteParameter',
+        'ssm:AddTagsToResource',
+      ],
+      resources: [
+        `arn:aws:ssm:${region}:${
+          Stack.of(this).account
+        }:parameter${separator}*`,
+      ],
       effect: iam.Effect.ALLOW,
       conditions: {
         StringEquals: {
-          [`aws:ResourceTag/${this.uniqueTagKey}`]: this.uniqueTagValue,
+          [`aws:ResourceTag/${this.uniqueTag.key}`]: this.uniqueTag.value,
         },
       },
     });
