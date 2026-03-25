@@ -1,22 +1,21 @@
-import { Stack } from 'aws-cdk-lib';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as ssm from 'aws-cdk-lib/aws-ssm';
-import * as cr from 'aws-cdk-lib/custom-resources';
-import { PutParameterRequest, TagList } from 'aws-sdk/clients/ssm';
-import { pascalCase } from 'change-case';
-import { Construct } from 'constructs';
-import { addError } from './errors/add';
-import { CrossRegionParameterProps, TagPropList } from './props';
+import { Stack } from "aws-cdk-lib";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as ssm from "aws-cdk-lib/aws-ssm";
+import * as cr from "aws-cdk-lib/custom-resources";
+import { PutParameterRequest, TagList } from "aws-sdk/clients/ssm";
+import { pascalCase } from "change-case";
+import { Construct } from "constructs";
+import { addError } from "./errors/add";
+import { CrossRegionParameterProps, TagPropList } from "./props";
 
 export enum OnEvent {
-  ON_CREATE='onCreate',
-  ON_UPDATE='onUpdate',
-  ON_DELETE='onDelete',
+  ON_CREATE = "onCreate",
+  ON_UPDATE = "onUpdate",
+  ON_DELETE = "onDelete",
 }
 
 /** Cross-Region SSM Parameter. */
 export class CrossRegionParameter extends Construct {
-
   /**
    * Define a new Cross-Region SSM Parameter.
    *
@@ -28,22 +27,28 @@ export class CrossRegionParameter extends Construct {
    *   value: 'Hej då!',
    * });
    */
-  constructor(scope: Construct, name: string, props: CrossRegionParameterProps) {
+  constructor(
+    scope: Construct,
+    name: string,
+    props: CrossRegionParameterProps,
+  ) {
     super(scope, name);
 
     this.validateRegion(props.region);
 
     const st = this.definePolicy(props);
 
-    const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, { statements: [st] });
+    const policy = new iam.Policy(this, `${pascalCase(name)}CrPolicy`, {
+      statements: [st],
+    });
 
-    const role = new iam.Role(this, 'ParameterCrRole', {
-      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+    const role = new iam.Role(this, "ParameterCrRole", {
+      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
     });
 
     role.attachInlinePolicy(policy);
 
-    const customResource = new cr.AwsCustomResource(this, 'AwsCustomResource', {
+    const customResource = new cr.AwsCustomResource(this, "AwsCustomResource", {
       onCreate: this.defineCreateUpdateSdkCall(OnEvent.ON_CREATE, props),
       onUpdate: this.defineCreateUpdateSdkCall(OnEvent.ON_UPDATE, props),
       onDelete: this.defineDeleteSdkCall(props),
@@ -54,12 +59,19 @@ export class CrossRegionParameter extends Construct {
     customResource.node.addDependency(role);
   }
 
-  private definePhysicalResourceId(props: CrossRegionParameterProps): cr.PhysicalResourceId {
+  private definePhysicalResourceId(
+    props: CrossRegionParameterProps,
+  ): cr.PhysicalResourceId {
     const { region, name } = props;
-    return cr.PhysicalResourceId.of(`CrossRegionParameter${pascalCase(region)}${pascalCase(name)}`);
+    return cr.PhysicalResourceId.of(
+      `CrossRegionParameter${pascalCase(region)}${pascalCase(name)}`,
+    );
   }
 
-  private defineCreateUpdateSdkCall(eventType: OnEvent, props: CrossRegionParameterProps): cr.AwsSdkCall {
+  private defineCreateUpdateSdkCall(
+    eventType: OnEvent,
+    props: CrossRegionParameterProps,
+  ): cr.AwsSdkCall {
     const {
       region,
       name,
@@ -74,8 +86,8 @@ export class CrossRegionParameter extends Construct {
     } = props;
 
     const parameters: PutParameterRequest = {
-      Name: name, /* required */
-      Value: value, /* required */
+      Name: name /* required */,
+      Value: value /* required */,
       AllowedPattern: allowedPattern,
       Description: description,
       KeyId: keyId,
@@ -89,8 +101,8 @@ export class CrossRegionParameter extends Construct {
     return {
       physicalResourceId: this.definePhysicalResourceId(props),
       region,
-      service: 'SSM',
-      action: 'putParameter',
+      service: "SSM",
+      action: "putParameter",
       parameters,
     };
   }
@@ -99,27 +111,29 @@ export class CrossRegionParameter extends Construct {
   private validateRegion(region: string): void {
     const currentRegion = Stack.of(this).region;
     if (currentRegion === region) {
-      addError(this, `Parameter target region ${region} can not be the same as source region ${currentRegion}`);
+      addError(
+        this,
+        `Parameter target region ${region} can not be the same as source region ${currentRegion}`,
+      );
     }
   }
 
   /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
   private tagPropsToTagParams(tags?: TagPropList): TagList | undefined {
-    return tags?.map(t => ({
+    return tags?.map((t) => ({
       Key: t.key,
       Value: t.value,
     }));
   }
 
   private defineDeleteSdkCall(props: CrossRegionParameterProps): cr.AwsSdkCall {
-
     const { region, name } = props;
 
     return {
       physicalResourceId: this.definePhysicalResourceId(props),
       region,
-      service: 'SSM',
-      action: 'deleteParameter',
+      service: "SSM",
+      action: "deleteParameter",
       parameters: {
         Name: name,
       },
@@ -130,11 +144,13 @@ export class CrossRegionParameter extends Construct {
     const { region, name } = props;
 
     // Depending if path paramater or simple parameter we may or may not need to set a slash separator to resource ARN
-    const separator = name.indexOf('/') === 0 ? '' : '/';
+    const separator = name.indexOf("/") === 0 ? "" : "/";
 
     return new iam.PolicyStatement({
-      actions: ['ssm:PutParameter', 'ssm:DeleteParameter'],
-      resources: [`arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}${name}`],
+      actions: ["ssm:PutParameter", "ssm:DeleteParameter"],
+      resources: [
+        `arn:aws:ssm:${region}:${Stack.of(this).account}:parameter${separator}${name}`,
+      ],
       effect: iam.Effect.ALLOW,
     });
   }
