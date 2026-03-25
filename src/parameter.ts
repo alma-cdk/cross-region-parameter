@@ -143,7 +143,7 @@ export class CrossRegionParameter extends Construct {
   private definePolicy(props: CrossRegionParameterProps): iam.PolicyStatement {
     const { region, name } = props;
 
-    // Depending if path paramater or simple parameter we may or may not need to set a slash separator to resource ARN
+    // Depending if path parameter or simple parameter we may or may not need to set a slash separator to resource ARN
     const separator = name.indexOf("/") === 0 ? "" : "/";
 
     return new iam.PolicyStatement({
