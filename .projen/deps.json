@@ -5,6 +5,10 @@
       "type": "build"
     },
     {
+      "name": "@types/change-case",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^30",
       "type": "build"

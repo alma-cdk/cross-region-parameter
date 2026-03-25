@@ -21,6 +21,9 @@ importers:
       '@alma-cdk/construct-library':
         specifier: ^0.0.14
         version: 0.0.14(constructs@10.3.0)(projen@0.99.21(constructs@10.3.0))
+      '@types/change-case':
+        specifier: ^2.3.5
+        version: 2.3.5
       '@types/jest':
         specifier: ^30
         version: 30.0.0
@@ -540,6 +543,10 @@ packages:
 
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
+
+  '@types/change-case@2.3.5':
+    resolution: {integrity: sha512-JvctDvBuY3MVSEisGbSgaAdJTcs+2JjBKO60W1Isr3GnX2YZCyJYLDY96bV4eWensEUrQLRGEL+egAkIXYrW1Q==}
+    deprecated: This is a stub types definition. change-case provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -3743,6 +3750,10 @@ snapshots:
   '@types/babel__traverse@7.28.0':
     dependencies:
       '@babel/types': 7.29.0
+
+  '@types/change-case@2.3.5':
+    dependencies:
+      change-case: 2.3.1
 
   '@types/estree@1.0.8': {}
 

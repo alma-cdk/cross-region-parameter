@@ -25,6 +25,7 @@ const project = new AlmaCdkConstructLibrary({
     "aws-cdk-lib",
     "@alma-cdk/construct-library",
     "@types/prettier@2.6.0",
+    "@types/change-case",
   ],
   deps: ["aws-sdk"],
   bundledDeps: ["aws-sdk", "change-case"],

@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@alma-cdk/construct-library": "^0.0.14",
+    "@types/change-case": "^2.3.5",
     "@types/jest": "^30",
     "@types/node": "^20",
     "@types/prettier": "2.6.0",
