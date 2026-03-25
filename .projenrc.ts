@@ -17,7 +17,7 @@ const project = new AlmaCdkConstructLibrary({
     "parameter",
   ],
   repositoryUrl: "https://github.com/alma-cdk/cross-region-parameter.git",
-  stability: cdk.Stability.EXPERIMENTAL, // or STABLE or DEPRECATED
+  stability: cdk.Stability.EXPERIMENTAL,
   majorVersion: 1,
   releaseEnvironment: "production",
   devDeps: [
