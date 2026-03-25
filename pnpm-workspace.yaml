@@ -12,6 +12,7 @@ resolutionMode: highest
 strictDepBuilds: true
 onlyBuiltDependencies:
   - unrs-resolver
+  - aws-sdk
 blockExoticSubdeps: true
 overrides:
   ajv@^8: ^8.18.0

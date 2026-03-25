@@ -28,6 +28,9 @@ const project = new AlmaCdkConstructLibrary({
   ],
   deps: ["aws-sdk"],
   bundledDeps: ["aws-sdk", "change-case"],
+  pnpmSettings: {
+    onlyBuiltDependencies: ["aws-sdk"],
+  },
 });
 
 project.synth();

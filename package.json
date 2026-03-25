@@ -39,7 +39,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@alma-cdk/construct-library": "^0.0.13",
+    "@alma-cdk/construct-library": "^0.0.14",
     "@types/jest": "^30",
     "@types/node": "^20",
     "@types/prettier": "2.6.0",
