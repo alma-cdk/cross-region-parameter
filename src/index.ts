@@ -1,2 +1,2 @@
-export { CrossRegionParameter } from './parameter';
-export * from './props';
+export { CrossRegionParameter } from "./parameter";
+export * from "./props";
