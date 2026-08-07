@@ -30,7 +30,7 @@ const project = new AlmaCdkConstructLibrary({
   deps: ["aws-sdk"],
   bundledDeps: ["aws-sdk", "change-case"],
   pnpmSettings: {
-    onlyBuiltDependencies: ["aws-sdk"],
+    allowBuilds: { "aws-sdk": true },
   },
   releaseBranches: {
     "2.x": {
