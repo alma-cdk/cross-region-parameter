@@ -32,6 +32,12 @@ const project = new AlmaCdkConstructLibrary({
   pnpmSettings: {
     onlyBuiltDependencies: ["aws-sdk"],
   },
+  releaseBranches: {
+    "2.x": {
+      majorVersion: 2,
+      prerelease: "beta",
+    },
+  },
 });
 
 project.synth();
