@@ -1,9 +1,4 @@
 import * as ssm from "aws-cdk-lib/aws-ssm";
-import {
-  AllowedPattern,
-  ParameterDescription,
-  ParameterKeyId,
-} from "aws-sdk/clients/ssm";
 
 export interface CrossRegionParameterProps {
   /**
@@ -30,7 +25,7 @@ export interface CrossRegionParameterProps {
    * @example
    * 'Some message for the Swedes'
    */
-  readonly description: ParameterDescription;
+  readonly description: string;
 
   /**
    * The SSM Parameter value that you want to add.
@@ -55,7 +50,7 @@ export interface CrossRegionParameterProps {
    * @example
    * '^\d+$'
    */
-  readonly allowedPattern?: AllowedPattern;
+  readonly allowedPattern?: string;
 
   /**
    * The AWS Key Management Service (AWS KMS) ID that you want to use to encrypt a parameter. Either the default AWS KMS key automatically assigned to your AWS account or a custom key. Required for parameters that use the SecureString data type.
@@ -69,7 +64,7 @@ export interface CrossRegionParameterProps {
    * @example
    * '1234abcd-12ab-34cd-56ef-1234567890ab'
    */
-  readonly keyId?: ParameterKeyId;
+  readonly keyId?: string;
 
   /**
    * The SSM Parameter Tier to assign to a parameter.
@@ -122,7 +117,7 @@ export interface CrossRegionParameterProps {
   /**
    * One or more policies to apply to a SSM Parameter.
    *
-   * @see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SSM.html#putParameter-property
+   * @see https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-ssm/Interface/PutParameterRequest/
    * @see https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html
    */
   readonly policies?: string;

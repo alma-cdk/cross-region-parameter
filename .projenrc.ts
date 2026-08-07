@@ -26,12 +26,12 @@ const project = new AlmaCdkConstructLibrary({
     "@alma-cdk/construct-library",
     "@types/prettier@2.6.0",
     "@types/change-case",
+    // Types only: the SDK calls are executed by the AwsCustomResource runtime,
+    // which ships its own SDK. Nothing is imported at runtime, so this must not
+    // become a (bundled) dependency.
+    "@aws-sdk/client-ssm",
   ],
-  deps: ["aws-sdk"],
-  bundledDeps: ["aws-sdk", "change-case"],
-  pnpmSettings: {
-    allowBuilds: { "aws-sdk": true },
-  },
+  bundledDeps: ["change-case"],
   releaseBranches: {
     "2.x": {
       majorVersion: 2,

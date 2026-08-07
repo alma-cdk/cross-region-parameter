@@ -18,6 +18,5 @@ trustPolicyExclude:
   - jsii-rosetta@6.0.9
 allowBuilds:
   unrs-resolver: true
-  aws-sdk: true
 blockExoticSubdeps: true
 trustPolicyIgnoreAfter: 20160

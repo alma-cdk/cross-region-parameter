@@ -408,7 +408,7 @@
             "--peer",
             "--no-deprecated",
             "--dep=dev,prod,peer,optional",
-            "--filter=@alma-cdk/construct-library,@types/change-case,aws-cdk-lib,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-pacmak,prettier,projen,ts-node,aws-sdk,change-case"
+            "--filter=@alma-cdk/construct-library,@aws-sdk/client-ssm,@types/change-case,aws-cdk-lib,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-pacmak,prettier,projen,ts-node,change-case"
           ]
         },
         {
@@ -419,6 +419,7 @@
             "pnpm",
             "update",
             "@alma-cdk/construct-library",
+            "@aws-sdk/client-ssm",
             "@types/change-case",
             "@types/jest",
             "@types/node",
@@ -444,7 +445,6 @@
             "ts-jest",
             "ts-node",
             "typescript",
-            "aws-sdk",
             "change-case",
             "constructs"
           ]
