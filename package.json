@@ -41,7 +41,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@alma-cdk/construct-library": "^2.2.1",
+    "@alma-cdk/construct-library": "^2.3.0",
     "@aws-sdk/client-ssm": "^3.1102.0",
     "@types/change-case": "^2.3.5",
     "@types/jest": "^30",
