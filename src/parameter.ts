@@ -1,8 +1,8 @@
+import type { PutParameterRequest, Tag } from "@aws-sdk/client-ssm";
 import { Stack } from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import * as cr from "aws-cdk-lib/custom-resources";
-import { PutParameterRequest, TagList } from "aws-sdk/clients/ssm";
 import { pascalCase } from "change-case";
 import { Construct } from "constructs";
 import { addError } from "./errors/add";
@@ -94,8 +94,12 @@ export class CrossRegionParameter extends Construct {
       Overwrite: eventType !== OnEvent.ON_CREATE,
       Policies: policies,
       Tags: this.tagPropsToTagParams(tags),
-      Tier: tier,
-      Type: type,
+      // The CDK enums carry the exact strings the SSM API expects, but they are
+      // not the SDK's literal union types: `ssm.ParameterType` is also wider,
+      // as it additionally covers `AWS::EC2::Image::Id`. Pass the values
+      // through unchanged rather than narrowing what callers may set.
+      Tier: tier as PutParameterRequest["Tier"],
+      Type: type as PutParameterRequest["Type"],
     };
 
     return {
@@ -118,8 +122,8 @@ export class CrossRegionParameter extends Construct {
     }
   }
 
-  /** Convert CDK/JSII compatible TagPropList to SDK compatible TagList. */
-  private tagPropsToTagParams(tags?: TagPropList): TagList | undefined {
+  /** Convert CDK/JSII compatible TagPropList to SDK compatible tags. */
+  private tagPropsToTagParams(tags?: TagPropList): Tag[] | undefined {
     return tags?.map((t) => ({
       Key: t.key,
       Value: t.value,
