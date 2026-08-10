@@ -2,7 +2,6 @@ import { AlmaCdkConstructLibrary } from "@alma-cdk/construct-library";
 import { cdk } from "projen";
 
 const MAJOR_VERSION = 2;
-const NEXT_MAJOR_VERSION = MAJOR_VERSION + 1;
 
 const project = new AlmaCdkConstructLibrary({
   name: "@alma-cdk/cross-region-parameter",
@@ -43,13 +42,6 @@ const project = new AlmaCdkConstructLibrary({
       // GHSA-5p4m-2wfm-xmqj and GHSA-h67p-54hq-rp68. Scoped to 3 so that
       // eslint's js-yaml 4.x is left on its own major.
       "js-yaml@3": "^3.15.1",
-    },
-  },
-  releaseBranches: {
-    [`${NEXT_MAJOR_VERSION}.x`]: {
-      majorVersion: NEXT_MAJOR_VERSION,
-      prerelease: "beta",
-      npmDistTag: "beta",
     },
   },
 });
