@@ -41,7 +41,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@alma-cdk/construct-library": "^2.1.0",
+    "@alma-cdk/construct-library": "^2.2.1",
     "@aws-sdk/client-ssm": "^3.1102.0",
     "@types/change-case": "^2.3.5",
     "@types/jest": "^30",
@@ -68,7 +68,7 @@
     "projen": "^0.101.24",
     "ts-jest": "^29",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9"
+    "typescript": "^6.0.2"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.260.0",
