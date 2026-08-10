@@ -1,6 +1,9 @@
 import { AlmaCdkConstructLibrary } from "@alma-cdk/construct-library";
 import { cdk } from "projen";
 
+const MAJOR_VERSION = 2;
+const NEXT_MAJOR_VERSION = MAJOR_VERSION + 1;
+
 const project = new AlmaCdkConstructLibrary({
   name: "@alma-cdk/cross-region-parameter",
   author: "Alma Media",
@@ -18,7 +21,7 @@ const project = new AlmaCdkConstructLibrary({
   ],
   repositoryUrl: "https://github.com/alma-cdk/cross-region-parameter.git",
   stability: cdk.Stability.EXPERIMENTAL,
-  majorVersion: 1,
+  majorVersion: MAJOR_VERSION,
   releaseEnvironment: "production",
   devDeps: [
     "constructs",
@@ -43,8 +46,8 @@ const project = new AlmaCdkConstructLibrary({
     },
   },
   releaseBranches: {
-    "2.x": {
-      majorVersion: 2,
+    [`${NEXT_MAJOR_VERSION}.x`]: {
+      majorVersion: NEXT_MAJOR_VERSION,
       prerelease: "beta",
     },
   },
